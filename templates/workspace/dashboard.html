@@ -1,0 +1,49 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173f35"><link rel="manifest" href="{% url 'manifest' %}">
+  <title>Workspace · SafetyFund</title><link rel="stylesheet" href="{% static 'workspace/app.css' %}">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="{% url 'dashboard' %}"><span class="brand-mark">S</span><span>Safety<span class="brand-light">Fund</span><small>WORKSPACE</small></span></a>
+    <div class="workspace-label">WORKSPACE</div>
+    <nav class="nav-list" aria-label="Main navigation">
+      <a class="nav-item active" href="{% url 'dashboard' %}"><span class="nav-icon">◫</span>Overview</a>
+      <a class="nav-item" href="#tasks"><span class="nav-icon">▤</span>My tasks<span class="nav-count">{{ active_count }}</span></a>
+      <a class="nav-item" href="#announcements"><span class="nav-icon">◉</span>Announcements</a>
+      <a class="nav-item" href="#team"><span class="nav-icon">♧</span>Team directory</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="help-card"><span class="help-icon">✳</span><strong>Stay connected</strong><p>Keep up with the latest from SafetyFund.</p><a href="{% url 'home' %}">Visit our public page ↗</a></div>
+      <div class="profile"><div class="avatar avatar-user">{{ request.user.first_name|default:request.user.username|slice:":1"|upper }}</div><div class="profile-copy"><strong>{{ request.user.get_full_name|default:request.user.username }}</strong><span>{{ request.user.email|default:"SafetyFund team" }}</span></div><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="icon-button logout" title="Sign out" aria-label="Sign out">↗</button></form></div>
+    </div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar"><button class="menu-toggle icon-button" id="menuToggle" aria-label="Toggle menu">☰</button><div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div class="topbar-right"><span class="today-label">{{ today|date:"l, j F Y" }}</span><button class="icon-button notification" aria-label="Notifications">♧<i></i></button><div class="avatar avatar-small">{{ request.user.first_name|default:request.user.username|slice:":1"|upper }}</div></div></header>
+    <div class="content-wrap">
+      {% if messages %}<div class="messages">{% for message in messages %}<div class="flash">{{ message }}</div>{% endfor %}</div>{% endif %}
+      <section class="welcome-row"><div><div class="eyebrow"><span class="eyebrow-dot"></span> YOUR WORKSPACE</div><h1>Good day, {{ request.user.first_name|default:request.user.username }} <span class="wave">✳</span></h1><p class="subheading">Here’s what’s happening across your team today.</p></div><button class="button-primary" onclick="document.getElementById('tasks').scrollIntoView({behavior:'smooth'})"><span>＋</span> View my tasks</button></section>
+      <section class="stats-grid" aria-label="Workspace statistics">
+        <article class="stat-card"><div class="stat-top"><span>Team members</span><span class="stat-icon mint">♧</span></div><div class="stat-value">{{ team_count|stringformat:"02d" }}</div><div class="stat-caption"><span class="status-dot green-dot"></span> People in your workspace</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Active tasks</span><span class="stat-icon amber">◷</span></div><div class="stat-value">{{ active_count|stringformat:"02d" }}</div><div class="stat-caption">Across all team members</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon blue">✓</span></div><div class="stat-value">{{ completed_count|stringformat:"02d" }}</div><div class="stat-caption">Tasks marked complete</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Announcements</span><span class="stat-icon rose">◉</span></div><div class="stat-value">{{ announcements|length|stringformat:"02d" }}</div><div class="stat-caption">Latest team updates</div></article>
+      </section>
+      <div class="dashboard-grid">
+        <section class="panel tasks-panel" id="tasks"><div class="panel-heading"><div><div class="eyebrow">STAY ON TRACK</div><h2>Your tasks</h2></div><a class="text-link" href="#tasks">All tasks <span>↗</span></a></div>
+          {% if tasks %}<div class="task-list">{% for task in tasks %}<article class="task-row"><form method="post" action="{% url 'update_task_status' task.id %}">{% csrf_token %}<button class="task-check {% if task.status == 'done' %}checked{% endif %}" aria-label="Mark {{ task.title }} complete">{% if task.status == 'done' %}✓{% endif %}</button></form><div class="task-info"><strong class="{% if task.status == 'done' %}task-done{% endif %}">{{ task.title }}</strong><span>{{ task.description|default:"No additional details"|truncatechars:70 }}</span></div><div class="task-meta"><span class="priority-pill {% if task.status == 'done' %}complete-pill{% elif task.status == 'in_progress' %}progress-pill{% else %}todo-pill{% endif %}">{{ task.get_status_display }}</span><span class="due-date">{% if task.due_date %}{{ task.due_date|date:"j M" }}{% else %}No due date{% endif %}</span></div></article>{% endfor %}</div>{% else %}<div class="empty-state"><span class="empty-icon">✳</span><strong>A clear space to get started</strong><p>Your tasks will show up here when they’re assigned to you.</p></div>{% endif %}
+          <div class="panel-footer"><span>Showing {{ tasks|length }} of {{ task_count }} tasks</span><span class="footer-spark">✳</span></div>
+        </section>
+        <section class="panel announcements-panel" id="announcements"><div class="panel-heading"><div><div class="eyebrow">IN THE LOOP</div><h2>Team updates</h2></div><span class="live-label"><i></i> LIVE</span></div>
+          {% if announcements %}<div class="announcement-list">{% for announcement in announcements %}<article class="announcement"><div class="announcement-marker">{% cycle '↗' '✳' '◌' '⌁' %}</div><div class="announcement-copy"><div class="announcement-date">{{ announcement.published_at|date:"j F Y" }}</div><h3>{{ announcement.title }}</h3><p>{{ announcement.body|truncatechars:125 }}</p><div class="author-line"><span class="avatar author-avatar">{{ announcement.author.first_name|default:announcement.author.username|default:"S"|slice:":1"|upper }}</span><span>{{ announcement.author.get_full_name|default:announcement.author.username|default:"SafetyFund team" }}</span></div></div></article>{% endfor %}</div>{% else %}<div class="empty-state announcement-empty"><span class="empty-icon">◉</span><strong>Your team’s story starts here</strong><p>Company announcements will appear here as they’re shared.</p></div>{% endif %}
+          <a class="updates-footer" href="#announcements">Stay connected with your team <span>↗</span></a>
+        </section>
+      </div>
+      <footer class="page-footer"><span>© {{ today|date:"Y" }} SafetyFund</span><span>Built for teams who care <span class="footer-heart">♥</span></span></footer>
+    </div>
+  </main>
+</div>
+<script src="{% static 'workspace/app.js' %}"></script><script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('{% url 'service_worker' %}');</script>
+</body></html>
