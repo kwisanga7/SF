@@ -1,1 +1,38 @@
-{% load static %}<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#173f35"><title>About · SafetyFund</title><link rel="stylesheet" href="{% static 'workspace/app.css' %}"></head><body class="public-page">{% include 'workspace/public_nav.html' %}<main class="info-page"><div class="public-eyebrow"><span></span> ABOUT SAFETYFUND</div><h1>Good work starts with<br><em>feeling supported.</em></h1><p class="info-lede">SafetyFund brings workplace management and communication together in one shared space, helping teams stay organised, informed and connected.</p><section class="info-highlight"><div class="intro-label"><span>01</span> OUR PURPOSE</div><h2>Make teamwork clearer,<br>so people can focus on what matters.</h2><p>We’re building a practical home for the everyday work of a company: keeping track of responsibilities, sharing important updates and helping people move forward together.</p></section><div class="info-columns"><article><span>01</span><h3>Clarity</h3><p>Give teams a shared view of tasks, priorities and updates.</p></article><article><span>02</span><h3>Connection</h3><p>Keep company communication easy to find and follow.</p></article><article><span>03</span><h3>Care</h3><p>Support safer, more thoughtful ways of working together.</p></article></div><a class="hero-primary info-cta" href="{% url 'contact' %}">Get in touch <span>→</span></a></main><footer class="public-footer"><a class="public-brand footer-brand" href="{% url 'home' %}"><span class="brand-mark">S</span><span>Safety<span class="public-brand-light">Fund</span></span></a><span>People first. Purpose always.</span><span>© 2026 SafetyFund</span></footer></body></html>
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173f35"><title>About SafetyFund</title>
+  <link rel="stylesheet" href="{% url 'app_stylesheet' %}?v=20261123-5">
+</head>
+<body class="public-page">
+  {% include 'workspace/public_nav.html' %}
+  <main class="info-page about-page">
+    <div class="public-eyebrow"><span></span> OUR PURPOSE</div>
+    <h1>Save together.<br><em>Grow together.</em></h1>
+    <p class="info-lede">SafetyFund is an initiative established to help safety professionals build a better and more secure financial future through saving, buying shares, collective investment, and financial cooperation.</p>
+    <div class="guiding-principle">Save Together. Grow Together. Secure the Future.</div>
+
+    <section class="about-statement">
+      <article><div class="intro-label"><span>01</span> OUR MISSION</div><h2>Empowerment through<br>responsible financial cooperation.</h2><p>To empower safety professionals to build a secure financial future through disciplined saving, collective investment, and responsible financial sharing.</p><p>In simpler words: we want safety professionals to save, invest, and share responsibly, creating a stronger and more secure financial future for every member.</p></article>
+      <article><div class="intro-label"><span>02</span> OUR VISION</div><h2>A trusted and sustainable<br>financial community.</h2><p>We want to transform the lives of safety professionals through collective savings, investment, financial empowerment, and shared prosperity.</p><p>Our long-term vision is a strong, reliable organization where members can pursue financial independence, support one another, and create lasting opportunities for future generations.</p></article>
+    </section>
+
+    <section class="about-team-photo"><div class="about-team-copy"><div class="intro-label"><span>03</span> OUR COMMUNITY</div><h2>Safety professionals,<br><em>working toward shared prosperity.</em></h2><p>SafetyFund brings people together around a shared commitment to saving, investing, and supporting one another.</p><a class="underlined-link" href="{% url 'team' %}">Meet the SafetyFund team <span>↗</span></a></div><img src="{% url 'team_photo' %}" alt="SafetyFund team gathered together"></section>
+
+    <section class="values-section about-values" id="values"><div class="intro-label"><span>04</span> THE PRINCIPLES THAT GUIDE US</div><h2>Our core <em>values.</em></h2><div class="values-grid">
+      <article><span>01</span><h3>Trust</h3><p>Build confidence among members through honesty and transparency.</p></article>
+      <article><span>02</span><h3>Unity</h3><p>Work together to achieve common financial goals.</p></article>
+      <article><span>03</span><h3>Discipline</h3><p>Maintain consistent savings and financial responsibility.</p></article>
+      <article><span>04</span><h3>Accountability</h3><p>Ensure proper management and reporting of members’ funds.</p></article>
+      <article><span>05</span><h3>Growth</h3><p>Encourage investment and sustainable financial development.</p></article>
+      <article><span>06</span><h3>Solidarity</h3><p>Support members through cooperation and shared opportunities.</p></article>
+      <article><span>07</span><h3>Sustainability</h3><p>Build a financial foundation that benefits current and future generations.</p></article>
+    </div></section>
+
+    <section class="goals-section"><div class="intro-label"><span>05</span> WHAT WE AIM TO ACHIEVE</div><h2>Shared goals.<br><em>A more secure future.</em></h2><ul><li>Encourage safety professionals to develop a saving culture.</li><li>Help members build wealth through buying shares.</li><li>Create opportunities for collective investment.</li><li>Promote financial independence among members.</li><li>Establish a trustworthy and sustainable financial community.</li><li>Improve members’ financial security for the future.</li></ul></section>
+    <section class="public-cta about-cta"><div class="cta-decoration">✳</div><div class="intro-label"><span>06</span> BE PART OF THE COMMUNITY</div><h2>Build your future,<br><em>together.</em></h2><p>Create an account and apply to become a SafetyFund member.</p><a href="{% url 'register' %}" class="hero-primary cta-button">Create an account <span>→</span></a></section>
+  </main>
+  {% include 'workspace/public_footer.html' %}
+</body>
+</html>

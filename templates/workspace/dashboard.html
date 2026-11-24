@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#173f35"><link rel="manifest" href="{% url 'manifest' %}">
-  <title>Workspace · SafetyFund</title><link rel="stylesheet" href="{% static 'workspace/app.css' %}">
+  <title>Workspace · SafetyFund</title><link rel="stylesheet" href="{% url 'app_stylesheet' %}?v=20261123-5">
 </head>
 <body>
 <div class="app-shell">
   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="{% url 'dashboard' %}"><span class="brand-mark">S</span><span>Safety<span class="brand-light">Fund</span><small>WORKSPACE</small></span></a>
+    <a class="brand" href="{% url 'dashboard' %}"><img class="brand-mark brand-logo" src="{% url 'brand_logo' %}" alt=""><span>Safety<span class="brand-light">Fund</span><small>WORKSPACE</small></span></a>
     <div class="workspace-label">WORKSPACE</div>
     <nav class="nav-list" aria-label="Main navigation">
       <a class="nav-item active" href="{% url 'dashboard' %}"><span class="nav-icon">◫</span>Overview</a>
@@ -45,5 +45,5 @@
     </div>
   </main>
 </div>
-<script src="{% static 'workspace/app.js' %}"></script><script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('{% url 'service_worker' %}');</script>
+<script src="{% static 'workspace/app.js' %}"></script><script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('{% url 'service_worker' %}', {updateViaCache: 'none'}).then(registration => registration.update());</script>
 </body></html>

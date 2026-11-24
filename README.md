@@ -22,7 +22,11 @@ A Django workspace starter for SafetyFund team management and communication. It 
    python manage.py runserver
    ```
 
-5. Open http://127.0.0.1:8000 for the public SafetyFund page. Use the navigation for About, Contact, Announcements, Meet The Team, Register, and Login. Signed-in members reach the private workspace at http://127.0.0.1:8000/workspace/. Manage public team profiles and announcements, and review contact form submissions, at http://127.0.0.1:8000/admin/.
+5. Open http://127.0.0.1:8000 for the public SafetyFund page. Guests can browse without an account. Registration creates a regular user account; users can apply for membership from **My Account**. An administrator reviews applications at http://127.0.0.1:8000/admin/ and changes the application status to Approved or Rejected. Only approved members and staff administrators can enter the private workspace at http://127.0.0.1:8000/workspace/.
+
+The admin site also manages public team profiles and announcements, receives contact form submissions, and reviews membership applications. Applicants provide their full name, ID number, phone, email, payment method, and proof of payment. The form accepts PDF, JPG, or PNG files up to 5 MB. Proof files are stored under `private_media/` and can be downloaded only through the staff admin review page; this directory is excluded from version control. The form records the selected mobile money or bank transfer method and receipt; it does not process payments. Announcements and team profiles must be marked public/published before they appear on the public pages.
+
+The public site uses the supplied SafetyFund logo and team photograph from `workspace/static/workspace/`; the Django app serves them through `/brand-logo.jpg` and `/team-photo.jpeg`.
 
 For a quick local preview before PostgreSQL is set up, leave `DB_NAME` unset in `.env`; Django will use a local SQLite database. PostgreSQL is selected automatically when `DB_NAME` is configured.
 

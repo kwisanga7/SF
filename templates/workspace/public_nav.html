@@ -1,4 +1,4 @@
-<header class="public-header"><a class="public-brand" href="{% url 'home' %}"><span class="brand-mark">S</span><span>Safety<span class="public-brand-light">Fund</span></span></a>
+{% load static %}<header class="public-header"><a class="public-brand" href="{% url 'home' %}"><img class="brand-mark brand-logo" src="{% url 'brand_logo' %}" alt=""><span>Safety<span class="public-brand-light">Fund</span></span></a>
   <nav class="public-nav" aria-label="Main navigation"><a href="{% url 'home' %}">Home</a><a href="{% url 'about' %}">About</a><a href="{% url 'contact' %}">Contact</a><a href="{% url 'announcements' %}">Announcements</a><a href="{% url 'team' %}">Meet The Team</a></nav>
-  <div class="public-account"><a class="public-register" href="{% url 'register' %}">Register</a><a class="public-login" href="{% url 'login' %}">Login <span>↗</span></a></div>
+  <div class="public-account">{% if user.is_authenticated %}<a class="public-login" href="{% url 'account_home' %}">My Account <span>↗</span></a>{% else %}<a class="public-register" href="{% url 'register' %}">User Registration</a><a class="public-login" href="{% url 'login' %}">User Login <span>↗</span></a>{% endif %}</div>
 </header>
