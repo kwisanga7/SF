@@ -1,0 +1,15 @@
+{% load static %}<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Manage Person · SafetyFund</title><link rel="stylesheet" href="{% url 'app_stylesheet' %}?v=20261124-4"></head>
+<body class="public-page">{% include 'workspace/public_nav.html' %}<main class="management-page role-edit-page">
+  <a class="back-link" href="{% url 'management_members' %}">← People & roles</a>
+  <div class="public-eyebrow"><span></span> MANAGE ACCOUNT</div><h1 class="role-edit-title">{{ profile.full_name|default:profile.user.username }}</h1><p class="role-edit-subtitle">Update this person’s details and SafetyFund role.</p>
+  {% if messages %}{% for message in messages %}<div class="contact-success review-flash">{{ message }}</div>{% endfor %}{% endif %}
+  <div class="role-edit-layout"><section class="management-panel role-edit-card"><form method="post" class="account-form application-form">{% csrf_token %}
+    <label for="id_full_name">Full name</label>{{ form.full_name }}{{ form.full_name.errors }}
+    <label for="id_id_number">ID number</label>{{ form.id_number }}{{ form.id_number.errors }}
+    <div class="form-pair"><div><label for="id_phone_number">Phone number</label>{{ form.phone_number }}{{ form.phone_number.errors }}</div><div><label for="id_email">Email address</label>{{ form.email }}{{ form.email.errors }}</div></div>
+    <label for="id_role">SafetyFund role</label>{{ form.role }}{{ form.role.errors }}
+    <div class="role-explainer"><strong>Role access</strong><span>Finance, Secretary, Developer, Marketing, and Admin roles require approved membership. Changing the role to User revokes member workspace access. Admin grants the staff dashboard and SafetyFund management permissions; the primary superuser remains protected.</span></div>
+    <button class="hero-primary" type="submit">Save changes <span>→</span></button>
+  </form></section><aside class="management-panel role-current-card"><div class="intro-label">ACCOUNT</div><h2>{{ profile.user.username }}</h2><p>{{ profile.user.email|default:"No account email" }}</p><div class="role-card-line"><span>Current role</span><strong class="role-chip role-{{ profile.role }}">{{ profile.get_role_display }}</strong></div>{% if application %}<div class="role-card-line"><span>Latest application</span><span class="application-status status-{{ application.status }}">{{ application.get_status_display }}</span></div>{% endif %}<small>Updated {{ profile.updated_at|date:"j F Y, H:i" }}{% if profile.updated_by %} by {{ profile.updated_by.get_full_name|default:profile.updated_by.username }}{% endif %}</small></aside></div>
+</main>{% include 'workspace/public_footer.html' %}</body></html>

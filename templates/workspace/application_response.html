@@ -1,0 +1,9 @@
+{% load static %}<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reply to Reviewer · SafetyFund</title><link rel="stylesheet" href="{% url 'app_stylesheet' %}?v=20261124-3"></head>
+<body class="public-page">{% include 'workspace/public_nav.html' %}<main class="account-page"><section class="account-card member-account">
+  <div class="public-eyebrow"><span></span> MEMBERSHIP REVIEW</div><h1>Additional information requested.</h1>
+  <p class="account-intro">Please reply to the reviewer’s request below. Your application will return to the review queue after you submit.</p>
+  <div class="application-summary"><b>Reviewer’s request</b><p>{{ application.review_note|linebreaksbr }}</p></div>
+  <form method="post" class="account-form application-form">{% csrf_token %}<label for="id_response">{{ form.response.label }}</label>{{ form.response }}{{ form.response.errors }}<button class="hero-primary" type="submit">Send reply <span>→</span></button></form>
+  <p class="account-switch"><a href="{% url 'account_home' %}">Return to my account</a></p>
+</section></main>{% include 'workspace/public_footer.html' %}</body></html>

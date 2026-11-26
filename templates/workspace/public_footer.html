@@ -1,7 +1,7 @@
 {% load static %}<footer class="site-footer">
   <div class="site-footer-main">
-    <div class="footer-about"><a class="public-brand footer-brand" href="{% url 'home' %}"><img class="brand-mark brand-logo" src="{% url 'brand_logo' %}" alt=""><span>Safety<span class="public-brand-light">Fund</span></span></a><p>Empowering safety professionals to save, invest, and build a more secure financial future together.</p><strong>Save Together. Grow Together. Secure the Future.</strong></div>
-    <div class="footer-links"><h2>Explore</h2><a href="{% url 'home' %}">Home</a><a href="{% url 'about' %}">About SafetyFund</a><a href="{% url 'team' %}">Meet the Team</a></div>
+    <div class="footer-about"><a class="public-brand footer-brand" href="{% url 'index' %}"><img class="brand-mark brand-logo" src="{% url 'brand_logo' %}" alt=""><span>Safety<span class="public-brand-light">Fund</span></span></a><p>Empowering safety professionals to save, invest, and build a more secure financial future together.</p><strong>Save Together. Grow Together. Secure the Future.</strong></div>
+    <div class="footer-links"><h2>Explore</h2><a href="{% url 'index' %}">Home</a><a href="{% url 'about' %}">About SafetyFund</a><a href="{% url 'team' %}">Meet the Team</a></div>
     <div class="footer-links"><h2>Stay connected</h2><a href="{% url 'announcements' %}">Announcements</a><a href="{% url 'contact' %}">Contact</a></div>
     <div class="footer-links"><h2>Get involved</h2>{% if user.is_authenticated %}<a href="{% url 'account_home' %}">My account</a>{% else %}<a href="{% url 'register' %}">Create an account</a><a href="{% url 'login' %}">Member login</a>{% endif %}</div>
   </div>
